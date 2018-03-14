@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="database">
+    <insert id="createUser" parameterType="hashmap">
+        INSERT INTO testTable(id, name, email, date)
+        VALUES (#{id}, #{name}, #{email}, #{date})
+    </insert>
+
+    <select id="getUserCount" resultType="Integer">
+        SELECT COUNT(*)
+        FROM testTable
+    </select>
+
+    <resultMap id="user_result" type="springMvc.model.User">
+        <result property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="email" column="email"/>
+        <result property="date" column="date"/>
+    </resultMap>
+
+    <select id="getAllUser" resultMap="user_result">
+        SELECT *
+        FROM testTable
+    </select>
+
+    <select id="getOneUser" parameterType="Integer" resultType="springMvc.model.User">
+        SELECT *
+        FROM testTable
+        WHERE id = #{id}
+    </select>
+
+    <select id="getPageUser" parameterType="hashmap" resultMap="user_result">
+        SELECT *
+        FROM testTable
+        WHERE id > #{offset} limit #{count}
+    </select>
+
+    <update id="updateUserName" parameterType="hashmap">
+        UPDATE testTable
+        SET NAME=#{newName}
+        WHERE NAME=#{oldName}
+    </update>
+
+    <delete id="deleteUser" parameterType="Integer">
+        DELETE FROM testTable
+        WHERE id = #{id}
+    </delete>
+
+</mapper>

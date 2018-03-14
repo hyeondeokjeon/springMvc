@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="deal">
+    <insert id="createDeal" parameterType="hashmap">
+        INSERT INTO search_deal(deal_srl, keyword, keyword_org)
+        VALUES (#{deal_srl}, #{keyword}, #{keyword_org})
+    </insert>
+
+    <select id="getDealCount" resultType="Long">
+        SELECT COUNT(*)
+        FROM search_deal
+    </select>
+
+    <resultMap id="dealResult" type="springMvc.model.Deal">
+        <result property="deal_srl" column="deal_srl"/>
+        <result property="keyword" column="keyword"/>
+        <result property="keyword_org" column="keyword_org"/>
+        <result property="regdate" column="regdate"/>
+    </resultMap>
+
+    <select id="getAllDeal" resultMap="dealResult">
+        SELECT *
+        FROM search_deal
+    </select>
+
+    <select id="getOneDeal" parameterType="Integer" resultType="springMvc.model.Deal">
+        SELECT *
+        FROM search_deal
+        WHERE deal_srl = #{deal_srl}
+    </select>
+
+    <select id="getPageDeal" parameterType="hashmap" resultMap="dealResult">
+        SELECT *
+        FROM search_deal
+        LIMIT #{count} OFFSET #{offset}
+    </select>
+
+    <update id="updateUserName" parameterType="hashmap">
+        UPDATE search_deal
+        SET keyword=#{newKeyWord}
+        WHERE keyword=#{oldKeyWord}
+    </update>
+
+    <delete id="deleteUser" parameterType="Integer">
+        DELETE FROM search_deal
+        WHERE search_deal = #{search_deal}
+    </delete>
+
+</mapper>
