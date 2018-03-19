@@ -125,13 +125,14 @@
             },
             handleSubmit: function(){
                 var self = this;
+                var formData = new FormData();
+                formData.append("deal_srl", this.$data.deal_srl);
+                formData.append("keyword", this.$data.keyword);
+                formData.append("keyword_org", this.$data.keyword_org);
+
+
                 this.$http.post('/form/create',
-                    'deal_srl=' + this.$data.deal_srl +
-                    '&keyword=' + this.$data.keyword +
-                    '&keyword_org=' + this.$data.keyword_org,
-                    {
-                        headers: {'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' }
-                    }
+                        formData
                 )
                 .then(function(response){
                     self.message = response.data;
@@ -179,14 +180,17 @@
         $scope.angular_handleSubmit = function(form){
             var url = '/form/create';
 
+            var formData = new FormData();
+            formData.append("deal_srl", $scope.deal_srl);
+            formData.append("keyword", $scope.keyword);
+            formData.append("keyword_org", $scope.keyword_org);
+
+
             $http
-                    .post(url,
-                            'deal_srl=' + $scope.deal_srl +
-                            '&keyword=' + $scope.keyword +
-                            '&keyword_org=' + $scope.keyword_org,
+                    .post(url, formData,
                             {
-                                headers: {'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
-                                transformResponse: undefined
+                                headers: {'Content-Type': undefined },
+                                transformResponse: angular_app.id
                             }
                     )
                     .then(function(response){

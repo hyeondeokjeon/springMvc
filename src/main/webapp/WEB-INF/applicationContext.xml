@@ -11,13 +11,13 @@
 
 
 
-    <mvc:annotation-driven/>
+    <!--annotation 사용한 트랙잭션 설정-->
+    <!--<tx:annotation-driven transaction-manager="transactionManager"/>-->
+    <!--<mvc:annotation-driven/>-->
+
     <context:component-scan base-package="springMvc.*">
         <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
     </context:component-scan>
-
-    <!--annotation 사용한 트랙잭션 설정-->
-    <!--<tx:annotation-driven transaction-manager="transactionManager"/>-->
 
     <!--트랜잭션 설정-->
     <aop:config proxy-target-class="true">

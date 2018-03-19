@@ -7,7 +7,7 @@
         <param-name>contextConfigLocation</param-name>
         <param-value>
             classpath:config/mybatis.xml
-            WEB-INF/applicationContext.xml
+            /WEB-INF/applicationContext.xml
         </param-value>
     </context-param>
 
@@ -23,7 +23,7 @@
         <init-param>
             <param-name>contextConfigLocation</param-name>
             <param-value>
-                WEB-INF/*-servlet.xml
+                classpath:spring/*-servlet.xml
             </param-value>
         </init-param>
         <load-on-startup>1</load-on-startup>

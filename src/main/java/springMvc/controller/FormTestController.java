@@ -32,7 +32,7 @@ public class FormTestController {
         return "form_js";
     }
 
-    @RequestMapping(value = "/create", params = {"deal_srl", "keyword", "keyword_org"})//, method = RequestMethod.POST)
+    @RequestMapping(value = "/create", params = {"deal_srl", "keyword", "keyword_org"}, method = RequestMethod.POST)
     @ResponseBody
     public String createData(@RequestParam(value = "deal_srl") long deal_srl,
             @RequestParam(value = "keyword") String keyword,
