@@ -10,6 +10,7 @@ import springMvc.domain.Member;
 import java.util.HashMap;
 
 @Controller
+@RequestMapping(value = "/form")
 public class FormController {
 
     Logger logger = LoggerFactory.getLogger(getClass());

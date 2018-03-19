@@ -4,13 +4,20 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.env.Environment;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import springMvc.model.Deal;
 import springMvc.service.DealService;
 
+import javax.servlet.http.HttpServletRequest;
+import java.io.File;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
@@ -22,10 +29,15 @@ import java.util.Random;
  */
 @Controller
 @RequestMapping(value = "/form")
+@PropertySource("classpath:/server.properties")
 public class FormTestController {
     private static final Logger logger = LoggerFactory.getLogger(FormTestController.class);
 
-    @Autowired DealService dealService;
+    @Autowired
+    Environment env;
+
+    @Autowired
+    DealService dealService;
 
     @RequestMapping(value = { "", "/" })
     public String mainPage(){
@@ -143,6 +155,30 @@ public class FormTestController {
         }
 
         return "Transaction Failed";
+    }
+
+    @RequestMapping(value = "/upload", method = RequestMethod.POST)
+    @ResponseBody
+    public Object uploadMultiPartFile(@RequestParam(value = "file")MultipartFile[] files, MultipartHttpServletRequest request){
+
+        Map<String, String> response = new HashMap<>();
+
+        for(int i = 0; i < files.length; ++i){
+            MultipartFile file = files[i];
+
+            logger.info("file name : {}, size: {}", file.getOriginalFilename(), file.getSize());
+
+            String path = env.getProperty("server.path.tempFile");
+            File outputFile = new File(path, file.getOriginalFilename());
+            try{
+                file.transferTo(outputFile);
+            }catch (IOException e){
+                response.put("status", "failed");
+                logger.error("file io error : ", e);
+            }
+        }
+        response.put("status", "success");
+        return response;
     }
 
 }

@@ -7,6 +7,7 @@
 
     <!-- # mvc -->
     <mvc:annotation-driven/>
+    <mvc:resources mapping="/static/scripts/**" location="/WEB-INF/static/scripts/" />
     <mvc:resources mapping="/static/**" location="/WEB-INF/static/" />
     <mvc:resources mapping="/pages/**" location="/WEB-INF/pages/" />
 
@@ -30,7 +31,6 @@
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix" value="/WEB-INF/view/"/>
         <property name="suffix" value=".jsp"/>
-        <!--<property name="contentType" value="text/html;charset=UTF-8"/>-->
     </bean>
     <mvc:default-servlet-handler/>
 

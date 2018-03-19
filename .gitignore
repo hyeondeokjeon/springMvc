@@ -38,5 +38,6 @@ out
 test-output
 atlassian-ide-plugin.xml
 .gradletasknamecache
+server.properties
 
 src/main/resources-dev

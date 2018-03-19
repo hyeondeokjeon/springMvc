@@ -55,6 +55,7 @@ var app = new Vue({
             var formData = new FormData();
             formData.append('name', 'postman');
             formData.append('age', 1234);
+            formData.append('age', 1234);
 
             axios.post('/saveForm', formData)
                 .then(response => {
