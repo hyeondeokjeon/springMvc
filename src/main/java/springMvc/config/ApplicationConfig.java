@@ -35,6 +35,7 @@ import java.util.List;
 @EnableAsync
 @Import({
 
+        MemcachedConfig.class,
 //        DatabaseConfig.class,
 //        MybatisConfig.class
 })
